@@ -9,13 +9,13 @@ ibm-watson-machine-learning==1.0.335
 ibm-generative-ai==2.3.0
 
 # Document Processing
-docling==1.0.0
+# docling==1.0.0  # Temporarily disabled due to docling-core conflict with deepsearch-glm
 pypdf2==3.0.1
 python-docx==1.1.0
 
 # Data Processing
-pandas==1.5.3
-numpy==1.24.3
+pandas==2.0.3
+numpy==1.26.4
 fastf1==3.3.4
 
 # Database

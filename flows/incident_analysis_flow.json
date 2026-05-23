@@ -1,0 +1,239 @@
+{
+  "name": "RaceLens XAI - Incident Analysis Flow",
+  "description": "End-to-end RAG workflow for motorsport incident analysis using IBM Granite",
+  "version": "1.0.0",
+  "nodes": [
+    {
+      "id": "input",
+      "type": "InputNode",
+      "data": {
+        "name": "Incident Input",
+        "description": "Receives incident data from API",
+        "fields": [
+          "incident_id",
+          "description",
+          "cars_involved",
+          "sector",
+          "speed_delta",
+          "track_zone",
+          "session",
+          "lap"
+        ]
+      },
+      "position": { "x": 100, "y": 200 }
+    },
+    {
+      "id": "normalize",
+      "type": "DataNormalizer",
+      "data": {
+        "name": "Normalize Incident Data",
+        "description": "Standardize incident data format",
+        "operations": [
+          "validate_fields",
+          "convert_units",
+          "extract_metadata"
+        ]
+      },
+      "position": { "x": 300, "y": 200 }
+    },
+    {
+      "id": "retrieve_regulations",
+      "type": "VectorRetrieval",
+      "data": {
+        "name": "Retrieve Regulations",
+        "description": "Retrieve relevant FIA regulation clauses",
+        "vector_store": "chromadb",
+        "collection": "fia_regulations",
+        "top_k": 5,
+        "similarity_threshold": 0.7
+      },
+      "position": { "x": 500, "y": 100 }
+    },
+    {
+      "id": "retrieve_precedents",
+      "type": "VectorRetrieval",
+      "data": {
+        "name": "Retrieve Precedents",
+        "description": "Retrieve similar past steward decisions",
+        "vector_store": "chromadb",
+        "collection": "steward_decisions",
+        "top_k": 3,
+        "similarity_threshold": 0.75
+      },
+      "position": { "x": 500, "y": 300 }
+    },
+    {
+      "id": "format_prompt",
+      "type": "PromptTemplate",
+      "data": {
+        "name": "Format Granite Prompt",
+        "description": "Format incident analysis prompt for IBM Granite",
+        "template": "incident_analysis",
+        "variables": [
+          "incident_data",
+          "regulations",
+          "precedents"
+        ]
+      },
+      "position": { "x": 700, "y": 200 }
+    },
+    {
+      "id": "granite_llm",
+      "type": "IBMGraniteLLM",
+      "data": {
+        "name": "IBM Granite Reasoning",
+        "description": "Generate incident analysis using IBM Granite",
+        "model": "granite-13b-instruct-v2",
+        "temperature": 0.3,
+        "max_tokens": 1000,
+        "top_p": 0.9
+      },
+      "position": { "x": 900, "y": 200 }
+    },
+    {
+      "id": "parse_response",
+      "type": "JSONParser",
+      "data": {
+        "name": "Parse Granite Response",
+        "description": "Extract structured data from LLM response",
+        "schema": {
+          "classification": "string",
+          "confidence": "float",
+          "regulation_clause": "string",
+          "explanation": "string",
+          "suggested_decision": "string",
+          "alternative_interpretations": "array"
+        }
+      },
+      "position": { "x": 1100, "y": 200 }
+    },
+    {
+      "id": "confidence_scorer",
+      "type": "ConfidenceScorer",
+      "data": {
+        "name": "Calculate Confidence",
+        "description": "Calculate overall confidence score",
+        "factors": [
+          "evidence_strength",
+          "regulation_clarity",
+          "precedent_alignment"
+        ]
+      },
+      "position": { "x": 1300, "y": 200 }
+    },
+    {
+      "id": "fan_translator",
+      "type": "IBMGraniteLLM",
+      "data": {
+        "name": "Fan Mode Translation",
+        "description": "Generate fan-friendly explanation",
+        "model": "granite-13b-instruct-v2",
+        "temperature": 0.5,
+        "max_tokens": 200,
+        "prompt_template": "fan_translation"
+      },
+      "position": { "x": 1100, "y": 400 }
+    },
+    {
+      "id": "output",
+      "type": "OutputNode",
+      "data": {
+        "name": "Analysis Output",
+        "description": "Return complete incident analysis",
+        "format": "json"
+      },
+      "position": { "x": 1500, "y": 200 }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "input",
+      "target": "normalize",
+      "sourceHandle": "output",
+      "targetHandle": "input"
+    },
+    {
+      "id": "e2",
+      "source": "normalize",
+      "target": "retrieve_regulations",
+      "sourceHandle": "output",
+      "targetHandle": "query"
+    },
+    {
+      "id": "e3",
+      "source": "normalize",
+      "target": "retrieve_precedents",
+      "sourceHandle": "output",
+      "targetHandle": "query"
+    },
+    {
+      "id": "e4",
+      "source": "normalize",
+      "target": "format_prompt",
+      "sourceHandle": "output",
+      "targetHandle": "incident_data"
+    },
+    {
+      "id": "e5",
+      "source": "retrieve_regulations",
+      "target": "format_prompt",
+      "sourceHandle": "results",
+      "targetHandle": "regulations"
+    },
+    {
+      "id": "e6",
+      "source": "retrieve_precedents",
+      "target": "format_prompt",
+      "sourceHandle": "results",
+      "targetHandle": "precedents"
+    },
+    {
+      "id": "e7",
+      "source": "format_prompt",
+      "target": "granite_llm",
+      "sourceHandle": "prompt",
+      "targetHandle": "input"
+    },
+    {
+      "id": "e8",
+      "source": "granite_llm",
+      "target": "parse_response",
+      "sourceHandle": "output",
+      "targetHandle": "input"
+    },
+    {
+      "id": "e9",
+      "source": "parse_response",
+      "target": "confidence_scorer",
+      "sourceHandle": "output",
+      "targetHandle": "input"
+    },
+    {
+      "id": "e10",
+      "source": "parse_response",
+      "target": "fan_translator",
+      "sourceHandle": "explanation",
+      "targetHandle": "input"
+    },
+    {
+      "id": "e11",
+      "source": "confidence_scorer",
+      "target": "output",
+      "sourceHandle": "output",
+      "targetHandle": "analysis"
+    },
+    {
+      "id": "e12",
+      "source": "fan_translator",
+      "target": "output",
+      "sourceHandle": "output",
+      "targetHandle": "fan_summary"
+    }
+  ],
+  "metadata": {
+    "created": "2024-05-26",
+    "author": "RaceLens XAI Team",
+    "tags": ["motorsport", "incident-analysis", "rag", "granite", "explainable-ai"]
+  }
+}

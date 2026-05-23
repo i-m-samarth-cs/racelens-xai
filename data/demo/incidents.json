@@ -1,0 +1,278 @@
+[
+  {
+    "id": "DEMO-001",
+    "title": "Qualifying Impeding",
+    "timestamp": "2024-05-26T14:23:45Z",
+    "type": "impeding",
+    "severity": "medium",
+    "risk_score": 0.92,
+    "description": "Driver on fast lap blocked by slow car in Turn 7-8 complex",
+    "cars_involved": ["CAR-01", "CAR-14"],
+    "sector": "Sector 2",
+    "track_zone": "Turn 7-8 complex",
+    "speed_delta": 45.0,
+    "flags": ["yellow"],
+    "session": "Qualifying",
+    "lap": 12,
+    "status": "analyzed",
+    "classification": "impeding",
+    "confidence": 0.92,
+    "regulation_clause": "Article 37.5 - Unnecessary Impeding",
+    "explanation": "Driver CAR-14 was on a slow lap and failed to move off the racing line when CAR-01 approached on a fast lap. The speed differential of 45 km/h and the location in a high-speed section constitute clear impeding under Article 37.5.",
+    "precedent_cases": [
+      {
+        "case_id": "2023-AUS-Q-IMP-01",
+        "similarity": 0.87,
+        "outcome": "3-place grid penalty",
+        "description": "Similar impeding incident in qualifying"
+      },
+      {
+        "case_id": "2023-BAH-Q-IMP-02",
+        "similarity": 0.82,
+        "outcome": "3-place grid penalty + €10,000 fine",
+        "description": "Impeding on fast lap in high-speed section"
+      }
+    ],
+    "alternative_interpretations": [
+      "Could be considered racing incident if CAR-14 was also on fast lap",
+      "Severity could be reduced if visibility was compromised"
+    ],
+    "suggested_decision": "3-place grid penalty + €10,000 fine",
+    "fan_mode_summary": "The slower car didn't get out of the way when the faster car was coming up behind on a flying lap. That's against the rules and usually gets a penalty.",
+    "evidence": [
+      {
+        "type": "telemetry",
+        "description": "Speed differential: 45 km/h",
+        "confidence": 0.95
+      },
+      {
+        "type": "regulation",
+        "description": "Article 37.5 - Unnecessary impeding",
+        "confidence": 0.98
+      },
+      {
+        "type": "precedent",
+        "description": "Similar cases resulted in 3-place penalties",
+        "confidence": 0.85
+      }
+    ]
+  },
+  {
+    "id": "DEMO-002",
+    "title": "Unsafe Pit Release",
+    "timestamp": "2024-05-26T15:12:33Z",
+    "type": "unsafe_release",
+    "severity": "high",
+    "risk_score": 0.88,
+    "description": "Car released into path of approaching car with insufficient gap",
+    "cars_involved": ["CAR-07", "CAR-23"],
+    "sector": "Pit Lane",
+    "track_zone": "Pit Exit",
+    "gap": 0.8,
+    "flags": [],
+    "session": "Race",
+    "lap": 28,
+    "status": "analyzed",
+    "classification": "unsafe_release",
+    "confidence": 0.88,
+    "regulation_clause": "Article 34.14 - Unsafe Release",
+    "explanation": "Team released CAR-07 with only 0.8 seconds gap to approaching CAR-23. This falls below the minimum safe release threshold and forced CAR-23 to take evasive action.",
+    "precedent_cases": [
+      {
+        "case_id": "2023-MON-R-REL-01",
+        "similarity": 0.91,
+        "outcome": "5-second time penalty + €5,000 fine",
+        "description": "Unsafe release with similar gap"
+      }
+    ],
+    "alternative_interpretations": [
+      "Could argue CAR-23 had opportunity to avoid",
+      "Gap measurement accuracy could be disputed"
+    ],
+    "suggested_decision": "5-second time penalty + reprimand",
+    "fan_mode_summary": "The team let their car out of the pit box when another car was too close. That's dangerous and gets penalized.",
+    "evidence": [
+      {
+        "type": "timing",
+        "description": "Gap measurement: 0.8 seconds",
+        "confidence": 0.92
+      },
+      {
+        "type": "video",
+        "description": "Pit lane camera shows unsafe release",
+        "confidence": 0.95
+      },
+      {
+        "type": "regulation",
+        "description": "Article 34.14 - Unsafe release",
+        "confidence": 0.98
+      }
+    ]
+  },
+  {
+    "id": "DEMO-003",
+    "title": "Lap 1 Avoidable Collision",
+    "timestamp": "2024-05-26T15:02:15Z",
+    "type": "collision",
+    "severity": "high",
+    "risk_score": 0.76,
+    "description": "Contact at Turn 1 causing retirement of one car",
+    "cars_involved": ["CAR-11", "CAR-18"],
+    "sector": "Sector 1",
+    "track_zone": "Turn 1",
+    "speed_delta": 12.0,
+    "flags": ["yellow", "safety_car"],
+    "session": "Race",
+    "lap": 1,
+    "status": "analyzed",
+    "classification": "causing_collision",
+    "confidence": 0.76,
+    "regulation_clause": "Article 38.1 - Causing a Collision",
+    "explanation": "CAR-11 made contact with CAR-18 at Turn 1 entry. Analysis shows CAR-11 had 70% fault due to late braking and insufficient space left. However, racing incident factors reduce certainty.",
+    "precedent_cases": [
+      {
+        "case_id": "2023-SPA-R-COL-01",
+        "similarity": 0.73,
+        "outcome": "5-second time penalty",
+        "description": "Lap 1 collision with similar circumstances"
+      }
+    ],
+    "alternative_interpretations": [
+      "Could be considered racing incident due to Lap 1 circumstances",
+      "CAR-18 could have left more space",
+      "Track conditions may have contributed"
+    ],
+    "suggested_decision": "5-second time penalty",
+    "fan_mode_summary": "Two cars touched at the first corner on the opening lap. One driver was mostly at fault for not leaving enough space, so they got a penalty.",
+    "evidence": [
+      {
+        "type": "video",
+        "description": "Multiple camera angles show contact",
+        "confidence": 0.95
+      },
+      {
+        "type": "telemetry",
+        "description": "Braking point analysis",
+        "confidence": 0.72
+      },
+      {
+        "type": "regulation",
+        "description": "Article 38.1 - Causing collision",
+        "confidence": 0.85
+      }
+    ]
+  },
+  {
+    "id": "DEMO-004",
+    "title": "Track Limits & Gained Advantage",
+    "timestamp": "2024-05-26T15:34:22Z",
+    "type": "track_limits",
+    "severity": "medium",
+    "risk_score": 0.94,
+    "description": "Multiple track limit violations with position advantage gained",
+    "cars_involved": ["CAR-05"],
+    "sector": "Sector 3",
+    "track_zone": "Turn 9, Turn 12",
+    "violations": 4,
+    "advantage_gained": 0.3,
+    "flags": [],
+    "session": "Race",
+    "lap": 42,
+    "status": "analyzed",
+    "classification": "track_limits_advantage",
+    "confidence": 0.94,
+    "regulation_clause": "Article 33.3 - Track Limits",
+    "explanation": "CAR-05 exceeded track limits 4 times in 3 laps, gaining approximately 0.3 seconds advantage. This exceeds the tolerance threshold and resulted in position gain over CAR-09.",
+    "precedent_cases": [
+      {
+        "case_id": "2023-AUT-R-TL-01",
+        "similarity": 0.89,
+        "outcome": "Position swap + warning",
+        "description": "Track limits with advantage gained"
+      }
+    ],
+    "alternative_interpretations": [
+      "Advantage measurement could be disputed",
+      "Some violations may have been forced by other cars"
+    ],
+    "suggested_decision": "Position swap with CAR-09 + warning",
+    "fan_mode_summary": "The driver went off track too many times and gained an unfair advantage, so they have to give back the position they gained.",
+    "evidence": [
+      {
+        "type": "timing",
+        "description": "Lap time advantage: 0.3 seconds",
+        "confidence": 0.91
+      },
+      {
+        "type": "video",
+        "description": "Track limit cameras show violations",
+        "confidence": 0.97
+      },
+      {
+        "type": "regulation",
+        "description": "Article 33.3 - Track limits",
+        "confidence": 0.98
+      }
+    ]
+  },
+  {
+    "id": "DEMO-005",
+    "title": "Rain Strategy Dilemma",
+    "timestamp": "2024-05-26T15:45:10Z",
+    "type": "strategy",
+    "severity": "low",
+    "risk_score": 0.78,
+    "description": "Rain approaching, optimal pit window decision required",
+    "cars_involved": ["CAR-03"],
+    "sector": "All",
+    "track_zone": "Full Circuit",
+    "tire_age": 18,
+    "tire_compound": "MEDIUM",
+    "weather_probability": 0.75,
+    "flags": [],
+    "session": "Race",
+    "lap": 52,
+    "status": "analyzed",
+    "classification": "strategy_decision",
+    "confidence": 0.78,
+    "strategy_recommendation": "pit_within_2_laps",
+    "explanation": "Weather radar shows rain approaching in 8-10 minutes. Current tire age (18 laps) and degradation rate suggest pitting within 2 laps provides optimal window before rain. Extending risks being caught out by weather change.",
+    "alternatives": [
+      {
+        "strategy": "pit_now",
+        "confidence": 0.65,
+        "reasoning": "Immediate pit ensures dry tire change but loses track position"
+      },
+      {
+        "strategy": "extend_5_laps",
+        "confidence": 0.42,
+        "reasoning": "High risk of being caught by rain on worn tires"
+      }
+    ],
+    "factors": {
+      "tire_degradation": 0.72,
+      "weather_risk": 0.75,
+      "traffic_impact": 0.45,
+      "safety_car_probability": 0.20
+    },
+    "suggested_decision": "Pit within 2 laps for fresh intermediates",
+    "fan_mode_summary": "Rain is coming soon, and the tires are getting old. The team should pit in the next lap or two to get fresh tires before the rain hits.",
+    "evidence": [
+      {
+        "type": "weather",
+        "description": "Rain probability: 75% in 8-10 minutes",
+        "confidence": 0.82
+      },
+      {
+        "type": "telemetry",
+        "description": "Tire degradation analysis",
+        "confidence": 0.88
+      },
+      {
+        "type": "historical",
+        "description": "Similar scenarios favor early pit",
+        "confidence": 0.73
+      }
+    ]
+  }
+]

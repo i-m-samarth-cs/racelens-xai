@@ -1,0 +1,277 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@layer base {
+  * {
+    @apply border-graphite-700;
+  }
+  
+  body {
+    @apply bg-background text-graphite-100 font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-graphite-700 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-racing-red;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-racing-red/30 text-white;
+  }
+
+  /* Focus visible */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-racing-red ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer components {
+  /* Glass panel effect */
+  .glass-panel {
+    @apply bg-background-surface/50 backdrop-blur-md border border-graphite-700/50;
+  }
+
+  /* Glow effect */
+  .glow-red {
+    @apply shadow-glow-red;
+  }
+
+  .glow-cyan {
+    @apply shadow-glow-cyan;
+  }
+
+  .glow-amber {
+    @apply shadow-glow-amber;
+  }
+
+  .glow-green {
+    @apply shadow-glow-green;
+  }
+
+  /* Carbon fiber background */
+  .carbon-fiber {
+    background-color: #0A0E14;
+    background-image: 
+      linear-gradient(27deg, #151515 5px, transparent 5px),
+      linear-gradient(207deg, #151515 5px, transparent 5px),
+      linear-gradient(27deg, #222 5px, transparent 5px),
+      linear-gradient(207deg, #222 5px, transparent 5px),
+      linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+      linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 0, 0 10px, 10px 10px, 0 0, 0 0;
+  }
+
+  /* Scan line effect */
+  .scan-line {
+    @apply relative overflow-hidden;
+  }
+
+  .scan-line::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-b from-transparent via-racing-cyan/10 to-transparent;
+    @apply animate-scan-line;
+    pointer-events: none;
+  }
+
+  /* Grid overlay */
+  .grid-overlay {
+    background-image: 
+      linear-gradient(rgba(0, 217, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 217, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply px-6 py-3 bg-racing-red text-white font-semibold rounded-lg;
+    @apply hover:bg-racing-red/90 active:scale-95;
+    @apply transition-all duration-200;
+    @apply shadow-lg hover:shadow-glow-red;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-background-elevated text-graphite-100 font-semibold rounded-lg;
+    @apply border border-graphite-700 hover:border-racing-cyan;
+    @apply hover:bg-background-elevated/80 active:scale-95;
+    @apply transition-all duration-200;
+  }
+
+  .btn-ghost {
+    @apply px-4 py-2 text-graphite-300 font-medium rounded-lg;
+    @apply hover:bg-background-elevated hover:text-white;
+    @apply transition-all duration-200;
+  }
+
+  /* Card styles */
+  .card {
+    @apply glass-panel rounded-xl p-6;
+    @apply hover:border-graphite-600 transition-all duration-300;
+  }
+
+  .card-elevated {
+    @apply card shadow-xl hover:shadow-2xl;
+  }
+
+  /* Badge styles */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold;
+  }
+
+  .badge-red {
+    @apply badge bg-racing-red/20 text-racing-red border border-racing-red/30;
+  }
+
+  .badge-cyan {
+    @apply badge bg-racing-cyan/20 text-racing-cyan border border-racing-cyan/30;
+  }
+
+  .badge-amber {
+    @apply badge bg-racing-amber/20 text-racing-amber border border-racing-amber/30;
+  }
+
+  .badge-green {
+    @apply badge bg-racing-green/20 text-racing-green border border-racing-green/30;
+  }
+
+  /* Input styles */
+  .input {
+    @apply w-full px-4 py-3 bg-background-elevated border border-graphite-700;
+    @apply rounded-lg text-graphite-100 placeholder-graphite-500;
+    @apply focus:border-racing-cyan focus:ring-2 focus:ring-racing-cyan/20;
+    @apply transition-all duration-200;
+  }
+
+  /* Tabular numbers for timing data */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  /* Speed streak effect */
+  .speed-streak {
+    @apply relative;
+  }
+
+  .speed-streak::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-racing-red/20 to-transparent;
+    @apply -translate-x-full;
+    animation: streak 2s ease-in-out infinite;
+  }
+
+  @keyframes streak {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(200%);
+    }
+  }
+
+  /* Pulse animation for live indicators */
+  .pulse-live {
+    @apply relative;
+  }
+
+  .pulse-live::before {
+    content: '';
+    @apply absolute inset-0 rounded-full bg-racing-red;
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0;
+      transform: scale(1.5);
+    }
+  }
+
+  /* Telemetry line animation */
+  .telemetry-line {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw-telemetry 2s ease-out forwards;
+  }
+
+  @keyframes draw-telemetry {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-gradient-red {
+    @apply bg-gradient-to-r from-racing-red to-racing-red/60 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-cyan {
+    @apply bg-gradient-to-r from-racing-cyan to-racing-cyan/60 bg-clip-text text-transparent;
+  }
+
+  .border-gradient-red {
+    border-image: linear-gradient(to right, #E63946, rgba(230, 57, 70, 0.6)) 1;
+  }
+
+  .animate-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .animate-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animate-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animate-delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .animate-delay-500 {
+    animation-delay: 500ms;
+  }
+}
+
+/* Made with Bob */
